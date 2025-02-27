@@ -94,7 +94,7 @@ function Calculator() {
 					Try these expressions:
 				</p>
 				<div className="grid grid-cols-2 gap-2 text-gray-400 text-sm">
-					{["42 - 17 + 8", "6 * 7 / 2", "(3 + 5) * 2", "3.14 * (10 - 2) / 4",].map((example) => (
+					{["42 - 17 + 8", "log(10,10)", "(3 + 5) * 2", "3.14 * (10 - 2) / 4",].map((example) => (
 						<button
 							onClick={() => setExampleExpression(example)}
 							className="bg-gray-700 hover:bg-gray-600 p-2 rounded-md text-center hover:bg-gray-650 transition-colors"
