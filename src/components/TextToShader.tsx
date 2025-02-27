@@ -78,11 +78,9 @@ const TextToShader: React.FC = () => {
 
 	return (
 		<div className="space-y-6">
-			<div className="space-y-2">
-				<h2 className="text-xl font-medium text-gray-100">
-					Text-to-Shader Generator
-				</h2>
-			</div>
+			   <div className="space-y-2 text-center">
+        <h2 className="text-2xl font-semibold text-purple-400">Text-to-Shader Generator</h2>
+      </div>
 
 			<PresetSelector
 				presets={SHADER_PRESETS}

@@ -1,6 +1,6 @@
-import React, { forwardRef } from "react";
+import { forwardRef } from "react";
 
-const ShaderCanvas = forwardRef<HTMLCanvasElement>((props, ref) => {
+const ShaderCanvas = forwardRef<HTMLCanvasElement>((_, ref) => {
   return (
     <canvas 
         ref={ref} 
