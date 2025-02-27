@@ -244,7 +244,7 @@ impl Parser {
                 Token::Number(n) => Ok(n),
     
                 Token::LeftParen => {
-                    let expr = self.parse_expression()?;
+                    let expr = self.parse_addition()?;
                     if let Some(Token::RightParen) = self.tokens.next() {
                         Ok(expr)
                     } else {
