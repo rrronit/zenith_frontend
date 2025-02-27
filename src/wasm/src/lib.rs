@@ -211,17 +211,14 @@ impl Parser {
                 );
             }
 
-            let base = self.parse_expression()?;
-
+            let base = self.parse_addition()?;
             if self.tokens.next() != Some(Token::Comma) {
                 return Err(
                     "Oops! 'log' needs a comma between base and value. Example: log(2, 8)."
                         .to_string(),
                 );
             }
-
-            let value = self.parse_expression()?;
-
+            let value = self.parse_addition()?;
             if self.tokens.next() != Some(Token::RightParen) {
                 return Err(
                     "You forgot to close the parentheses in 'log'. Try adding a ')'.".to_string(),
