@@ -128,7 +128,7 @@ function Calculator() {
 
 			{/* Input Form */}
 			<form onSubmit={handleSubmit} className="space-y-4">
-				<div className="flex space-x-2">
+				<div className="flex flex-col sm:flex-row gap-2">
 					<input
 						type="text"
 						value={expression}
