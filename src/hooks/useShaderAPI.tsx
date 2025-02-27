@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { generateShaderAPI, fixShaderAPI } from "../service";
 
 export const useShaderAPI = () => {
 	const [shaderCode, setShaderCode] = useState<string>("");
@@ -6,9 +7,7 @@ export const useShaderAPI = () => {
 	const [error, setError] = useState<string | null>(null);
 	const [isFixing, setIsFixing] = useState<boolean>(false);
 
-	const generateShader = async (
-		description: string
-	): Promise<string | null> => {
+	const generateShader = async (description: string): Promise<string | null> => {
 		if (!description.trim()) {
 			setError("Please enter a description.");
 			return null;
@@ -18,23 +17,8 @@ export const useShaderAPI = () => {
 		setError(null);
 
 		try {
-			const response = await fetch(
-				"http://localhost:4000/api/generate-shader",
-				{
-					method: "POST",
-					headers: { "Content-Type": "application/json" },
-					body: JSON.stringify({ description }),
-				}
-			);
-
-			if (!response.ok) {
-				throw new Error(`Server responded with ${response.status}`);
-			}
-
-			const data = await response.json();
-			const cleanedShader = data.shader
-				.replace(/```(glsl|)\n?/g, "")
-				.trim();
+			const data = await generateShaderAPI(description);
+			const cleanedShader = data.shader.replace(/```(glsl|)\n?/g, "").trim();
 			setShaderCode(cleanedShader);
 			return cleanedShader;
 		} catch (err) {
@@ -46,33 +30,12 @@ export const useShaderAPI = () => {
 		}
 	};
 
-	const fixShader = async (
-		code: string,
-		errorMessage: string
-	): Promise<string | null> => {
+	const fixShader = async (code: string, errorMessage: string): Promise<string | null> => {
 		setIsFixing(true);
 
 		try {
-			const response = await fetch(
-				"http://localhost:4000/api/fix-shader",
-				{
-					method: "POST",
-					headers: { "Content-Type": "application/json" },
-					body: JSON.stringify({
-						code,
-						error: errorMessage,
-					}),
-				}
-			);
-
-			if (!response.ok) {
-				throw new Error(`Server responded with ${response.status}`);
-			}
-
-			const data = await response.json();
-			const cleanedShader = data.shader
-				.replace(/```(glsl|)\n?/g, "")
-				.trim();
+			const data = await fixShaderAPI(code, errorMessage);
+			const cleanedShader = data.shader.replace(/```(glsl|)\n?/g, "").trim();
 			setShaderCode(cleanedShader);
 			return cleanedShader;
 		} catch (err) {
